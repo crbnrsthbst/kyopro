@@ -24,7 +24,7 @@ int main() {
     if (xc != c) {
       int cntBefore = 0;
       int cntAfter = 0;
-      rep2(j, x - 3, x ) {
+      rep2(j, x - 3, x) {
         if (j < 0 || j + 2 > n - 1) {
           continue;
         }
