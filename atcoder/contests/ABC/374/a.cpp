@@ -5,14 +5,15 @@ using namespace std;
 #define rep2(i, m, n) for (int i = (m); (i) < (int)(n); ++(i))
 
 int main() {
+  int n;
   string s;
-  cin >> s;
-
-  if (s.substr(s.length() - 3, 3) == "san") {
-    cout << "Yes" << endl;
-  } else {
-    cout << "No" << endl;
+  cin >> n >> s;
+  int cnt = 0;
+  for (int i = 0; i < n - 2; i++) {
+    if (s[i] == '#' && s[i + 2] == '#' && s[i + 1] == '.') cnt++;
   }
+
+  cout << cnt << endl;
 
   return 0;
 }

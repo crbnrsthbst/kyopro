@@ -5,22 +5,20 @@ using namespace std;
 #define rep2(i, m, n) for (int i = (m); (i) < (int)(n); ++(i))
 
 int main() {
-  string s, t;
-  cin >> s >> t;
-  int minLen = min(s.length(), t.length());
+  int n;
+  cin >> n;
 
-  int ans = 0;
-  rep(i, minLen) {
-    if (s[i] != t[i]) {
-      ans = i + 1;
-      break;
-    }
+  double lastX, lastY;
+  lastX = 0;
+  lastY = 0;
+  double sum = 0;
+  rep(i, n) {
+    double x, y;
+    cin >> x >> y;
+    sum += sqrt(pow(abs(x - lastX), 2) + pow(abs(y - lastY), 2));
+    lastX = x;
+    lastY = y;
   }
-
-  if (ans == 0) {
-    if (s.length() != t.length()) {
-      ans = minLen + 1;
-    }
-  }
-  cout << ans << endl;
+  sum += sqrt(pow(abs(0 - lastX), 2) + pow(abs(0 - lastY), 2));
+  cout << setprecision(10) << sum;
 }
