@@ -1,1 +1,0 @@
-lookingAts[zekkens[i]]
