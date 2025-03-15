@@ -8,22 +8,24 @@ using namespace std;
 using Graph = vector<vector<int>>;
 const int dy[8] = {-1, 1, 0, 0, 1, 1, -1, -1};
 const int dx[8] = {0, 0, -1, 1, 1, -1, 1, -1};
-int w, h;
-void dfs(Graph &g, vector<vector<bool>> &done, int y, int x) {
-  done[y][x] = true;
+int w, h, islandCnt;
+void dfs(int y, int x, Graph &g, vector<vector<bool>> &visited) {
+  visited[y][x] = true;
   rep(i, 8) {
-    int ny, nx;
-    ny = y + dy[i];
-    nx = x + dx[i];
-    if (ny < 0 || ny >= h || nx < 0 || nx >= w || g[ny][nx] == 0 || done[ny][nx]) {
+    int ny = y + dy[i], nx = x + dx[i];
+    if (ny > h - 1 || ny < 0 || nx > w - 1 || nx < 0) {
       continue;
     }
-    dfs(g, done, ny, nx);
-  } 
+    if (visited[ny][nx] || !g[ny][nx]) {
+      continue;
+    }
+    dfs(ny, nx, g, visited);
+  }
 }
 
 int main() {
-  vector<int> cnts;
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   while (true) {
     cin >> w >> h;
     if (w == 0) {
@@ -33,21 +35,18 @@ int main() {
     rep(i, h) {
       rep(j, w) { cin >> g[i][j]; }
     }
-    vector<vector<bool>> done(h, vector<bool>(w, false));
-    int cnt = 0;
+    islandCnt = 0;
+    vector<vector<bool>> visited(h, vector<bool>(w, false));
     rep(i, h) {
       rep(j, w) {
-        if (done[i][j] || g[i][j] == 0) {
-          continue;
+        if (g[i][j] && !visited[i][j]) {
+          islandCnt++;
+          dfs(i, j, g, visited);
         }
-        dfs(g, done, i, j);
-        cnt++;
       }
     }
-    cnts.push_back(cnt);
+    cout << islandCnt << endl;
   }
-  for (auto cnt : cnts) {
-    cout << cnt << endl;
-  }
+
   return 0;
 }
