@@ -5,41 +5,45 @@ using namespace std;
 #define rep2(i, m, n) for (int i = (m); (i) < (int)(n); ++(i))
 #define all(x) (x).begin(), (x).end()
 using Graph = vector<vector<int>>;
+int h, w;
+int maxBroken = -1;
 const int dy[4] = {-1, 1, 0, 0};
 const int dx[4] = {0, 0, -1, 1};
-int w, h, currentCnt;
-long long maxCnt;
-long long dfs(Graph &g, int y, int x, vector<vector<bool>> &seen) {
-  seen[y][x] = true;
-  long long cnt = 1;
+int dfs(vector<pair<int, int>> &path, Graph &g, vector<vector<bool>> &visited) {
+  int cnt = path.size();
+  int y = path.back().first;
+  int x = path.back().second;
+  visited[y][x] = true;
   rep(i, 4) {
     int ny = y + dy[i], nx = x + dx[i];
-    if (ny < 0 || ny >= h || nx < 0 || nx >= w || seen[ny][nx] ||
-        g[ny][nx] == 0) {
+    if (ny > h - 1 || ny < 0 || nx > w - 1 || nx < 0 || visited[ny][nx] || !g[ny][nx]) {
       continue;
     }
-    cnt = max(cnt, 1 + dfs(g, ny, nx, seen));
+    path.push_back({ny, nx});
+    cnt = max(cnt, dfs(path, g, visited));
+    path.pop_back();
   }
-  seen[y][x] = false;
+  visited[y][x] = false;
   return cnt;
 }
 
 int main() {
   cin >> w >> h;
-
   Graph g(h, vector<int>(w));
   rep(i, h) {
     rep(j, w) { cin >> g[i][j]; }
   }
-  vector<vector<bool>> done(h, vector<bool>(w, false));
-  long long maxCnt = 0;
+  vector<vector<bool>> visited(h, vector<bool>(w, false));
+  int ans = 0;
   rep(i, h) {
     rep(j, w) {
-      if (g[i][j] == 0) continue;
-      maxCnt = max(maxCnt, dfs(g, i, j, done));
+      if (g[i][j]) {
+        vector<pair<int, int>> path;
+        path.push_back({i, j});
+        ans = max(ans,  dfs(path, g, visited));
+      }
     }
   }
-
-  cout << maxCnt << endl;
+  cout << ans << endl;
   return 0;
 }
