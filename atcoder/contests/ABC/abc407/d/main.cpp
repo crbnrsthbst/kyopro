@@ -6,4 +6,17 @@ using namespace std;
 #define all(a) a.begin(), a.end()
 using ll = long long;
 using Graph = vector<vector<int>>;
-int main() { return 0; }
+using P = pair<int, int>;
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios::sync_with_stdio(false);
+
+  int n;
+  cin >> n;
+  vector<string> S(n);
+  rep(i, n) cin >> S[i];
+
+  
+  return 0;
+}
