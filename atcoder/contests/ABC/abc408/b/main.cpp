@@ -12,5 +12,19 @@ int main() {
   std::cin.tie(nullptr);
   std::ios::sync_with_stdio(false);
 
+  int n;
+  cin >> n;
+  vector<int> A(n);
+  rep(i, n) cin >> A[i];
+  sort(all(A));
+  set<int> nums;
+
+  rep(i, n) { nums.insert(A[i]); }
+
+  cout << nums.size() << endl;
+  for (int num : nums) {
+    cout << num << " ";
+  }
+  cout << endl;
   return 0;
 }

@@ -12,5 +12,19 @@ int main() {
   std::cin.tie(nullptr);
   std::ios::sync_with_stdio(false);
 
+  double n, s;
+  cin >> n >> s;
+  vector<double> t(n);
+  rep(i, n) cin >> t[i];
+
+  double passed;
+  rep(i, n) {
+    if (i == 0 && t[i] >= s + 0.5 || t[i] - t[i - 1] >= s + 0.5) {
+      cout << "No" << endl;
+      return 0;
+    }
+  }
+
+  cout << "Yes" << endl;
   return 0;
 }

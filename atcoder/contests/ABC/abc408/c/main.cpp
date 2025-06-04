@@ -12,5 +12,11 @@ int main() {
   std::cin.tie(nullptr);
   std::ios::sync_with_stdio(false);
 
+  int n, m;
+  vector<int> L(m), R(m);
+  rep(i, m) { cin >> L[i] >> R[i]; }
+
+  
+
   return 0;
 }
